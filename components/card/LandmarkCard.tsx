@@ -2,7 +2,7 @@ import Image from "next/image";
 import { LandmarkCardProps } from "@/utils/types";
 
 const LandmarkCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
-  const { name, image, id, province, lat, lng, category } = landmark;
+  const { name, image,  province,   category } = landmark;
 
   return (
     <article className="group shadow-sm relative transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 p-3 rounded-2xl bg-white dark:bg-gray-800/30">

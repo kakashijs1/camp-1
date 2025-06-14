@@ -47,7 +47,7 @@ const CreateProfile = async () => {
               {/* You can add more fields here */}
             </div>
             <CardFooter className="px-0 pt-6">
-              <SubmitButton text="create profile" className="" />
+              <SubmitButton text="create profile" size="lg" className="" />
             </CardFooter>
           </FormContainer>
         </CardContent>
