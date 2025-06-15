@@ -1,8 +1,12 @@
 import Image from "next/image";
 import { LandmarkCardProps } from "@/utils/types";
+import { categories } from "@/utils/categories";
 
 const LandmarkCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
-  const { name, image,  province,   category } = landmark;
+  
+  const { name, image, province, category } = landmark;
+  const categoryObj = categories.find((c) => c.label === category);
+  const CategoryIcon = categoryObj?.icon;
 
   return (
     <article className="group shadow-sm relative transform hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 p-3 rounded-2xl bg-white dark:bg-gray-800/30">
@@ -24,7 +28,8 @@ const LandmarkCard = ({ landmark }: { landmark: LandmarkCardProps }) => {
             {name}
           </h3>
           <p className="text-sm text-gray-500 dark:text-gray-400">{province}</p>
-          <span className="inline-block px-3 py-1.5 text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full font-semibold tracking-wide">
+          <span className="inline-flex items-center gap-1 px-3 py-1.5 text-xs bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 rounded-full font-semibold tracking-wide">
+            {CategoryIcon && <CategoryIcon className="w-4 h-4" />}
             {category}
           </span>
           
