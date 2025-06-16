@@ -9,8 +9,13 @@ import FormInput from "@/components/Form/FormInput";
 import { SubmitButton } from "@/components/Form/Buttons";
 import FormContainer from "@/components/Form/FormContainer";
 import { createProfileAction } from "@/actions/actions";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 const CreateProfile = async () => {
+  const user = await currentUser()
+  if(user?.privateMetadata.hasProfile) redirect('/')
+    
   return (
     <div className="container mx-auto py-10">
       <Card className="max-w-md mx-auto">

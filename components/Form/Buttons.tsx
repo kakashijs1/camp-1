@@ -2,7 +2,8 @@
 
 import { useFormStatus } from "react-dom";
 import { Button } from "../ui/button";
-import { Loader } from "lucide-react";
+import { Heart, Loader, RotateCw } from "lucide-react";
+import { SignInButton } from "@clerk/nextjs";
 
 type btnSize = "default" | "lg" | "sm";
 
@@ -30,6 +31,46 @@ export const SubmitButton = ({ className, text, size }: SubmitButtonProps) => {
         </>
       ) : (
         <p>{text}</p>
+      )}
+    </Button>
+  );
+};
+
+export const SignInCardButton = () => {
+  return (
+    <SignInButton mode="modal">
+      <Button className="bg-red-500/70 cursor-pointer">
+        <Heart className="text-white" />
+      </Button>
+    </SignInButton>
+  );
+};
+
+export const CardsubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
+  // console.log('is',isFavorite)
+  const { pending } = useFormStatus();
+  return (
+    <Button 
+      type="submit" 
+      size="icon" 
+      className={`
+      cursor-pointer
+      transition-all duration-300 ease-in-out
+      ${isFavorite 
+        ? 'bg-pink-100 hover:bg-pink-200' 
+        : 'bg-white/80 hover:bg-gray-100'
+      }
+      shadow-sm hover:shadow-md
+      rounded-full
+      transform hover:scale-105
+      `}
+    >
+      {pending ? (
+      <RotateCw className="animate-spin text-gray-600" />
+      ) : isFavorite ? (
+      <Heart className="text-red-500" fill="currentColor" />
+      ) : (
+      <Heart className="text-gray-600 hover:text-red-500 transition-colors" />
       )}
     </Button>
   );
