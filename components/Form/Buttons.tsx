@@ -53,9 +53,7 @@ export const CardsubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
     <Button 
       type="submit" 
       size="icon" 
-      className={`
-      cursor-pointer
-      transition-all duration-300 ease-in-out
+      className={`cursor-pointer transition-all duration-300 ease-in-out
       ${isFavorite 
         ? 'bg-pink-100 hover:bg-pink-200' 
         : 'bg-white/80 hover:bg-gray-100'
@@ -66,9 +64,9 @@ export const CardsubmitButton = ({ isFavorite }: { isFavorite: boolean }) => {
       `}
     >
       {pending ? (
-      <RotateCw className="animate-spin text-gray-600" />
+      <RotateCw className="animate-spin  text-red-500" />
       ) : isFavorite ? (
-      <Heart className="text-red-500" fill="currentColor" />
+      <Heart className="text-red-500 hover:text-gray-600 transition-colors" fill="currentColor" />
       ) : (
       <Heart className="text-gray-600 hover:text-red-500 transition-colors" />
       )}

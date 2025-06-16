@@ -1,3 +1,4 @@
+
 import { fetchLandmarks } from "@/actions/actions"
 import LandmarkList from "./LandmarkList"
 import { LandmarkCardProps } from "@/utils/types"
