@@ -1,21 +1,21 @@
-
 import { Tent } from "lucide-react";
+import Link from "next/link";
 
 const Logo = () => {
   return (
-    <>
-      <div className="flex items-center justify-center gap-x-4">
-        {/* <Image
-          src={"/assets/camp2.png"}
-          alt="logo"
-          className="  bg-white rounded-full p-1"
-          width={48}
-          height={48}
-        /> */}
-        <Tent className="shadow-xl" />
-        <h1 className="font-bold">Clerk-Camp</h1>
-      </div>
-    </>
+    <Link 
+      href="/" 
+      className="flex items-center justify-start gap-x-2 md:gap-x-4 transition-all hover:opacity-80"
+    >
+      <Tent 
+        className="w-6 h-6 md:w-8 md:h-8 shadow-xl animate-pulse" 
+        strokeWidth={2}
+      />
+      <h1 className="font-bold text-sm md:text-md lg:text-xl animate-pulse  ">
+        K-Camp
+      </h1>
+    </Link>
   );
 };
+
 export default Logo;

@@ -1,8 +1,8 @@
+import { Suspense } from "react";
 import { DarkMode } from "./DarkMode";
 import DropdownListMenu from "./DropdownListMenu";
 import Logo from "./Logo";
 import Search from "./Search";
- 
 
 const Navbar = () => {
   return (
@@ -11,13 +11,14 @@ const Navbar = () => {
         {/* Logo */}
         <Logo />
         {/* Search */}
-        <Search />
+        <Suspense>
+          <Search />
+        </Suspense>
 
-        <div className="flex gap-4">
+        <div className="flex items-center justify-between  lg:justify-center gap-4">
           {/* darkmode */}
           <DarkMode />
           <DropdownListMenu />
-           
         </div>
       </div>
     </nav>

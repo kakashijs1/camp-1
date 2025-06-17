@@ -26,7 +26,7 @@ export const categories = [
     icon: Bed,
   },
   {
-    label: "moutain",
+    label: "mountain",
     icon: Mountain,
   },
   {

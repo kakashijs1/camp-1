@@ -14,7 +14,7 @@ export const links: NavLinks[] = [
   },
   {
     href: "/favorits",
-    label: "Favorits",
+    label: "Favorite",
   },
   {
     href: "/camp",

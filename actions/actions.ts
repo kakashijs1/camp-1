@@ -10,7 +10,6 @@ import { clerkClient, currentUser } from "@clerk/nextjs/server";
 import db from "@/utils/db";
 import { redirect } from "next/navigation";
 import { uploadFile } from "@/utils/supabase";
-import { string } from "zod";
 import { revalidatePath } from "next/cache";
 
 const getAuthUser = async () => {
@@ -105,17 +104,30 @@ export const createLandmarkAction = async (
   redirect("/");
 };
 
-export const fetchLandmarks = async () =>
-  // search
-  {
-    //code body
-    const landmarks = await db.landmark.findMany({
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
-    return landmarks;
-  };
+export const fetchLandmarks = async ({
+  search = "",
+  category,
+}: {
+  search?: string;
+  category?: string;
+}) => {
+  const landmarks = await db.landmark.findMany({
+    where: {
+      category,
+      OR: [
+        { name: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        { province: { contains: search, mode: "insensitive" } },
+        { category: { contains: search, mode: "insensitive" } },
+        // {}
+      ],
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+  return landmarks;
+};
 
 export const fetchFavoriteId = async ({
   landmarkId,
@@ -160,25 +172,25 @@ export const toggleFavoriteAction = async (prevState: {
         },
       });
     }
-    revalidatePath(pathname)
-    return { message: favoriteId 
-      ?'Removed Favorite Success!!' 
-      : 'Add Favorite Success!!' 
+    revalidatePath(pathname);
+    return {
+      message: favoriteId
+        ? "Removed Favorite Success!!"
+        : "Add Favorite Success!!",
     };
   } catch (error) {
-    return renderError(error)
+    return renderError(error);
   }
 };
 
-
 export const fetchFavorits = async () => {
-  const user = await getAuthUser()
+  const user = await getAuthUser();
   const favorites = await db.favorite.findMany({
     where: {
-      profileId: user.id
+      profileId: user.id,
     },
     select: {
-      landmark:{
+      landmark: {
         select: {
           id: true,
           name: true,
@@ -188,11 +200,11 @@ export const fetchFavorits = async () => {
           province: true,
           lat: true,
           lng: true,
-          category: true
-        }
-      }
-    }
-  })
+          category: true,
+        },
+      },
+    },
+  });
   //
-  return favorites.map((favorite)=>favorite.landmark)
-}
+  return favorites.map((favorite) => favorite.landmark);
+};
