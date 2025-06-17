@@ -1,5 +1,8 @@
+'use client'
+
 import { categories } from "@/utils/categories";
 import Link from "next/link";
+import { motion } from "framer-motion"; // 👉 เพิ่ม framer-motion
 
 const CategoriesList = ({
     search,
@@ -12,11 +15,16 @@ const CategoriesList = ({
 
     return (
         <div className="w-full px-4 md:px-6 lg:px-8">
-            {/* Categories grid with clean, modern styling */}
+            {/* Categories grid */}
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-7 gap-3 md:gap-4 py-6">
-                {categories.map((item) => (
+                {categories.map((item, index) => (
                     <Link key={item.label} href={`/?category=${item.label}${searchTerm}`}>
-                        <article 
+                        {/* ใช้ motion.div แทน article */}
+                        <motion.article
+                            initial={{ opacity: 0, y: 20 }} // 👉 เริ่มจาง + ลอยลง
+                            whileInView={{ opacity: 1, y: 0 }} // 👉 โผล่ขึ้นมาชัด
+                            viewport={{ once: true }} // 👉 Animate แค่ตอนเจอครั้งแรก
+                            transition={{ duration: 0.4, delay: index * 0.1 }} // 👉 ทำให้แต่ละอัน delay นิดหน่อย ไล่เรียงกัน
                             className={`
                                 group relative flex flex-col items-center justify-center
                                 p-4 md:p-6 rounded-xl transition-all duration-300
@@ -36,7 +44,7 @@ const CategoriesList = ({
                                 <div className="absolute -inset-0.5 bg-gradient-to-r from-blue-500/20 to-purple-500/20 rounded-xl blur-sm -z-10" />
                             )}
 
-                            {/* Icon with better sizing and spacing */}
+                            {/* Icon */}
                             <div className={`
                                 flex items-center justify-center w-10 h-10 mb-3
                                 text-2xl transition-all duration-300
@@ -48,7 +56,7 @@ const CategoriesList = ({
                                 <item.icon />
                             </div>
 
-                            {/* Label with better typography */}
+                            {/* Label */}
                             <p className={`
                                 text-xs md:text-sm font-medium text-center leading-tight
                                 ${category === item.label 
@@ -60,14 +68,14 @@ const CategoriesList = ({
                                 {item.label}
                             </p>
 
-                            {/* Active indicator dot */}
+                            {/* Active dot */}
                             {category === item.label && (
                                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full animate-pulse" />
                             )}
 
-                            {/* Hover effect overlay */}
+                            {/* Hover Overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                        </article>
+                        </motion.article>
                     </Link>
                 ))}
             </div>

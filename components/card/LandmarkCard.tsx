@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { LandmarkCardProps } from "@/utils/types";
 import { categories } from "@/utils/categories";
